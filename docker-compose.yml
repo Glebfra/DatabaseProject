@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  django:
+    container_name: django
+    volumes:
+      - ./app:/var/lib/django/app
+    build: ./app
+    links:
+      - mysql
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+
+  mysql:
+    container_name: mysql
+    image: mysql
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8080:80"
+
+volumes:
+  static_files:
