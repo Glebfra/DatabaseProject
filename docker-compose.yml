@@ -12,7 +12,7 @@ services:
       timeout: 1s
       retries: 5
     env_file:
-      - .env.local
+      - .env
     ports:
       - "3306:3306"
 
@@ -21,7 +21,7 @@ services:
     image: phpmyadmin
     restart: always
     env_file:
-      - .env.local
+      - .env
     ports:
       - "8080:80"
 
@@ -35,7 +35,7 @@ services:
       mysql:
         condition: service_healthy
     env_file:
-      - .env.local
+      - .env
     ports:
       - "8000:8000"
 

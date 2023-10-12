@@ -1,15 +1,18 @@
-from django.shortcuts import render
+from rest_framework import generics
+from rest_framework.permissions import IsAdminUser
+
+from .models import Element
+from .serializers import ElementSerializer
 
 
-class Element:
-    def get(self):
-        pass
+class ElementList(generics.ListCreateAPIView):
+    queryset = Element.objects.all()
+    serializer_class = ElementSerializer
+    permission_classes = [IsAdminUser]
 
-    def post(self):
-        pass
-
-    def patch(self):
-        pass
-
-    def put(self):
-        pass
+    def perform_create(self, serializer):
+        serializer.save(
+            user=self.request.user,
+            name=self.request.data['name'],
+            symbol=self.request.data['symbol']
+        )
