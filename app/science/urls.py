@@ -1,7 +1,11 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 
-from .views import ElementList
+from .views import APIElementViewSet
+
+router = DefaultRouter()
+router.register('elements', APIElementViewSet)
 
 urlpatterns = [
-    path('elements/', ElementList.as_view(), name='element_list')
+    path('', include(router.urls)),
 ]

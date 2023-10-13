@@ -19,8 +19,8 @@ from django.urls import include, path
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('database/', include('science.urls')),
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain'),
-    path('token/refresh/', TokenObtainPairView.as_view(), name='token_refresh')
+    path('api/admin/', admin.site.urls),
+    path('api/database/', include('science.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain'),
+    path('api/token/refresh/', TokenObtainPairView.as_view(), name='token_refresh')
 ]
