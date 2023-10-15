@@ -14,3 +14,18 @@ class Element(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class SaturationData(models.Model):
+    element = models.ForeignKey(Element, on_delete=models.PROTECT, verbose_name='Элемент')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Пользователь')
+    temperature = models.FloatField(verbose_name='Температура')
+    pressure = models.FloatField(verbose_name='Давление')
+    density = models.FloatField(verbose_name='Плотность')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Данные линии насыщения'
+
+    def __str__(self):
+        return f'Element: {self.element.name}'
