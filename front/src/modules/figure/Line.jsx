@@ -1,13 +1,20 @@
 import React from 'react'
-
+import axios from 'axios'
 
 
 class Line extends React.Component {
-    render() {
-        return (
-            <div>
+    loadData = () => {
+        axios.get(
+            'http://localhost:8000/api/database/saturation'
+        ).then(response => {
+            this.setState('data', response.data)
+        })
+    }
 
-            </div>
+    render() {
+        this.loadData()
+        return (
+            this.state.data
         );
     }
 }
