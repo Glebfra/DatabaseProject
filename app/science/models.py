@@ -29,3 +29,33 @@ class SaturationData(models.Model):
 
     def __str__(self):
         return f'Element: {self.element.name}'
+
+
+class PhaseDiagram(models.Model):
+    element = models.ForeignKey(Element, on_delete=models.PROTECT, verbose_name='Элемент')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Пользователь')
+    temperature = models.FloatField(verbose_name='Температура')
+    pressure = models.FloatField(verbose_name='Давление')
+    density = models.FloatField(verbose_name='Плотность')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Данные фазовой диаграммы'
+
+    def __str__(self):
+        return f'Element: {self.element.name}'
+
+
+class Storage(models.Model):
+    element = models.ForeignKey(Element, on_delete=models.PROTECT, verbose_name='Элемент')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Пользователь')
+    values = models.JSONField(verbose_name='Значения')
+    query = models.CharField(max_length=255, verbose_name='Поисковой запрос')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Хранилище данных'
+        verbose_name_plural = 'Хранилище данных'
+
+    def __str__(self):
+        return f'Данные пользователя: {self.user.username}'

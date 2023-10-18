@@ -1,7 +1,6 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Element, SaturationData
+from .models import Element, PhaseDiagram, SaturationData, Storage
 
 
 class ElementSerializer(serializers.ModelSerializer):
@@ -37,3 +36,38 @@ class SaturationDataSerializer(serializers.ModelSerializer):
         instance.temperature = validated_data.get('temperature', instance.temperature)
         instance.pressure = validated_data.get('pressure', instance.pressure)
         instance.density = validated_data.get('density', instance.density)
+
+
+class PhaseDiagramSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PhaseDiagram
+        fields = '__all__'
+        read_only_fields = ['id', 'user', 'created_at']
+
+    def create(self, validated_data):
+        phase = PhaseDiagram(**validated_data)
+        phase.save()
+        return phase
+
+    def update(self, instance, validated_data):
+        instance.temperature = validated_data.get('temperature', instance.temperature)
+        instance.pressure = validated_data.get('pressure', instance.pressure)
+        instance.density = validated_data.get('density', instance.density)
+        instance.save()
+
+
+class StorageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Storage
+        fields = '__all__'
+        read_only_fields = ['id', 'user', 'created_at']
+
+    def create(self, validated_data):
+        storage = Storage(**validated_data)
+        storage.save()
+        return storage
+
+    def update(self, instance, validated_data):
+        instance.values = validated_data.get('values', instance.values)
+        instance.query = validated_data.get('query', instance.query)
+        instance.save()
