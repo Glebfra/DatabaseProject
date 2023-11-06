@@ -1,10 +1,8 @@
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
+from rest_framework.status import *
 from rest_framework.viewsets import ModelViewSet
-from rest_framework_simplejwt.authentication import get_user_model
 
-from .models import Element, PhaseDiagram, SaturationData, Storage
-from .serializers import ElementSerializer, PhaseDiagramSerializer, SaturationDataSerializer, StorageSerializer
+from .serializers import *
 
 
 class APIElementViewSet(ModelViewSet):
@@ -50,6 +48,7 @@ class APISaturationDataViewSet(ModelViewSet):
         temperature = self.request.query_params.get('temperature')
         pressure = self.request.query_params.get('pressure')
         density = self.request.query_params.get('density')
+        state = self.request.query_params.get('state')
 
         queryset = SaturationData.objects.all().order_by('temperature')
         if user is not None:
@@ -62,7 +61,16 @@ class APISaturationDataViewSet(ModelViewSet):
             queryset = queryset.filter(pressure=pressure)
         if density is not None:
             queryset = queryset.filter(density=density)
+        if state is not None:
+            queryset = queryset.filter(state=state)
         return queryset
+
+    def destroy(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.delete()
+            return Response('', status=HTTP_200_OK)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
 class APIPhaseDiagramDataViewSet(ModelViewSet):
@@ -73,9 +81,8 @@ class APIPhaseDiagramDataViewSet(ModelViewSet):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save(user=self.request.user)
-            return Response(serializer.data, HTTP_201_CREATED)
-        return Response(serializer.errors, HTTP_400_BAD_REQUEST)
-
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     def get_queryset(self):
         user = self.request.query_params.get('user')
@@ -106,8 +113,8 @@ class APIStorageViewSet(ModelViewSet):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save(user=self.request.user)
-            return Response(serializer.data, HTTP_201_CREATED)
-        return Response(serializer.errors, HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     def get_queryset(self):
         query = self.request.query_params.get('query')

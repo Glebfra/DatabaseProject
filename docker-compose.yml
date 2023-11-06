@@ -47,6 +47,7 @@ services:
     restart: always
     volumes:
       - static_files:/var/lib/nginx/static
+      - ./front/build:/var/lib/nginx/react
     depends_on:
       - django
     ports:
@@ -54,3 +55,4 @@ services:
 
 volumes:
   static_files:
+  media_files:

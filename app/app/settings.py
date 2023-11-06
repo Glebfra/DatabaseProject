@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     'science.apps.ScienceConfig',
+    'api.apps.ApiConfig',
 
 ]
 
@@ -84,7 +85,10 @@ DATABASES = {
         'PASSWORD': os.getenv('DJANGO_DATABASE_PASSWORD'),
         'HOST': os.getenv('DJANGO_DATABASE_HOST'),
         'PORT': os.getenv('DJANGO_DATABASE_PORT'),
-    }
+    },
+    'OPTIONS': {
+        "init_command": "SET foreign_key_checks = 0;",
+    },
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -102,6 +106,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://api.localhost'
+]
+
 LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
@@ -112,7 +120,11 @@ USE_TZ = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-STATIC_URL = 'static/'
-STATIC_ROOT = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
+
+MEDIA_URL = 'http://api.localhost/media/'
+BACKEND_MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

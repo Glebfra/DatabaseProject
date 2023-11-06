@@ -16,6 +16,4 @@ WORKDIR /var/lib/django/app
 
 RUN cd /var/lib/django
 
-RUN mkdir static
-
 CMD uwsgi --http :8000 --wsgi-file /var/lib/django/app/app/wsgi.py --chmod-socket=666 --enable-threads
