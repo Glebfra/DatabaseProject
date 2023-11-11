@@ -107,7 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://api.localhost'
+    f'http://{os.getenv("DJANGO_SERVER_NAME")}:{os.getenv("DJANGO_SERVER_PORT")}',
+    f'http://{os.getenv("REACT_SERVER_NAME")}:{os.getenv("REACT_SERVER_PORT")}',
+    f'http://localhost'
 ]
 
 LANGUAGE_CODE = 'ru'
@@ -118,12 +120,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-CORS_ORIGIN_ALLOW_ALL = True
-
 STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
 
-MEDIA_URL = 'http://api.localhost/media/'
+MEDIA_URL = f'http://{os.getenv("DJANGO_SERVER_NAME")}/media/'
 BACKEND_MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
