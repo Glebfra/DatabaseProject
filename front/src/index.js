@@ -8,6 +8,8 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./modules/auth/Login";
 import CheckAuth from "./modules/auth/CheckAuth";
 import Account from "./modules/account/Account";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 axios.defaults.baseURL = 'http://api.localhost/'
 
