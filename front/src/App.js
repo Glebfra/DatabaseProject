@@ -31,7 +31,7 @@ class App extends React.Component {
                     <Carousel style={{height: 768, width: 1366}}>
                         {this.state.carousel.map(item => (
                             <Carousel.Item>
-                                <img src={item.image} style={{height: 768, width: 1366}}/>
+                                <img src={item.image} style={{height: 768, width: 1366}} alt={item.caption}/>
                                 <Carousel.Caption>
                                     <h3>{item.caption}</h3>
                                     <p>{item.body}</p>

@@ -1,15 +1,11 @@
 import React from "react";
 import {Button, Container, Modal, Nav, Navbar, NavDropdown} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from "react-router-dom";
-import axios from "axios";
 
 
 class Navigation extends React.Component {
     constructor(props) {
         super(props);
-
-        this.handleLogoutClose = this.handleLogoutClose.bind(this);
 
         this.state = {
             showLogout: false,
@@ -17,12 +13,8 @@ class Navigation extends React.Component {
         };
     }
 
-    checkToken = () => {
-        return localStorage.getItem('access') != null;
-    }
-
     handleLogoutClose = () => {
-        this.setState({showLogout: !this.state.showLogout})
+        this.setState({showLogout: !this.state.showLogout});
     }
 
     handleLogout = () => {
@@ -36,8 +28,8 @@ class Navigation extends React.Component {
         this.setState({seed: Math.random()});
     }
 
-    getAccountView() {
-        if (this.checkToken()) {
+    getAccountView = () => {
+        if (localStorage.getItem('access') != null) {
             return (
                 <NavDropdown title='Account' id='basic-nav-dropdown'>
                     <NavDropdown.Item href='/account'>Account</NavDropdown.Item>

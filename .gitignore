@@ -8,5 +8,7 @@ venv
 # Migrations
 app/*/migrations/*
 !app/*/migrations/__init__.py
+
 app/static
 app/media
+logs

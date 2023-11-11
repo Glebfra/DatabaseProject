@@ -16,11 +16,10 @@ class Login extends React.Component {
         ).then(response => {
             localStorage.setItem('access', response.data.access);
             localStorage.setItem('refresh', response.data.refresh);
+            this.props.navigate('/');
         }).catch(error => {
             this.setState({error: true});
-        }).finally(() => {
-            this.props.navigate('/');
-        })
+        });
     }
 
     showErrorMessage = () => {
