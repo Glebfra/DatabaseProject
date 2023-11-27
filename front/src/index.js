@@ -10,8 +10,7 @@ import CheckAuth from "./modules/auth/CheckAuth";
 import Account from "./modules/account/Account";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-axios.defaults.baseURL = 'http://api.localhost/'
+axios.defaults.baseURL = `http://api.localhost`
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

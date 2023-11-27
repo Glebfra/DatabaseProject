@@ -1,5 +1,5 @@
 import Navigation from "./modules/Navigation/Navigation";
-import React from "react";
+import React, { useState } from "react";
 import {Carousel, Container} from "react-bootstrap";
 import axios from "axios";
 
@@ -20,8 +20,6 @@ class App extends React.Component {
     }
 
     render() {
-        console.log(this.state.carousel)
-
         return (
             <div className="App">
                 <header>
